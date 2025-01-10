@@ -48,7 +48,7 @@ def get_driver():
     # options.add_argument(f'--proxy-server={proxy}')
 
     # Set up ChromeDriver
-    options.binary_location = "/opt/chromium/chrome-linux/chrome"
+    options.binary_location = "/tmp/chromium/chrome-linux/chrome" 
     options.add_argument("--headless")  # Run Chromium in headless mode
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
