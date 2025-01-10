@@ -1,1 +1,1 @@
-web: gunicorn app:twitter_login
+web: gunicorn app:app
