@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
-# Install Chrome
-apt-get update
-apt-get install -y wget unzip
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-#!/usr/bin/env bash
-# Download and set up prebuilt Chrome
-mkdir -p /opt/chrome
-curl -L https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o /tmp/google-chrome.deb
-dpkg-deb -x /tmp/google-chrome.deb /opt/chrome
-ln -sf /opt/chrome/opt/google/chrome/google-chrome /usr/bin/google-chrome
+# Download and extract Chromium Portable
+mkdir -p /opt/chromium
+curl -L https://commondatastorage.googleapis.com/chromium-browser-snapshots/Linux_x64/1085174/chrome-linux.zip -o /tmp/chrome-linux.zip
+unzip /tmp/chrome-linux.zip -d /opt/chromium
