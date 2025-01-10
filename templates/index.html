@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Trending Topics</title>
+    <script>
+        async function runScript() {
+            const results = document.getElementById('results');
+            results.innerHTML = "Fetching trends...";
+
+            try {
+                const response = await fetch('/run-script');
+                const data = await response.json();
+                results.innerHTML = "";
+
+                if (data.success) {
+                    const trends = data.data.trends; // Corrected to match your backend JSON structure
+                    const list = document.createElement("ul");
+                    trends.forEach(trend => {
+                        const listItem = document.createElement("li");
+                        listItem.textContent = trend;
+                        list.appendChild(listItem);
+                    });
+                    results.appendChild(list);
+                } else {
+                    results.textContent = "Failed to fetch trends: " + data.error;
+                }
+            } catch (error) {
+                results.textContent = "An error occurred: " + error.message;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Top 5 Trending Topics on Twitter</h1>
+    <button onclick="runScript()">Fetch Trending Topics</button>
+    <div id="results"></div>
+</body>
+</html>
