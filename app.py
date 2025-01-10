@@ -119,11 +119,16 @@ def home():
 
 @app.route("/run-script", methods=["GET"])
 def run_script():
-    data = fetch_trending_topics()
-    if data:
-        return jsonify({"success": True, "data": data})
-    else:
-        return jsonify({"success": False, "error": "Failed to fetch trends"})
+    try:
+        data = fetch_trending_topics()
+        if data:
+            return jsonify({"success": True, "data": data})
+        else:
+            return jsonify({"success": False, "error": "Failed to fetch trends"})
+    except Exception as e:
+        app.logger.error(f"Error in /run-script: {e}")
+        return jsonify({"success": False, "error": str(e)}), 500
+
 
 if __name__ == "__main__":
     app.run(debug=True)
