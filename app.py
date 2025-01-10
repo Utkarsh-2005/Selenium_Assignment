@@ -48,6 +48,11 @@ def get_driver():
     # options.add_argument(f'--proxy-server={proxy}')
 
     # Set up ChromeDriver
+    options.binary_location = "/usr/bin/google-chrome"
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     return driver
 
@@ -119,16 +124,11 @@ def home():
 
 @app.route("/run-script", methods=["GET"])
 def run_script():
-    try:
-        data = fetch_trending_topics()
-        if data:
-            return jsonify({"success": True, "data": data})
-        else:
-            return jsonify({"success": False, "error": "Failed to fetch trends"})
-    except Exception as e:
-        app.logger.error(f"Error in /run-script: {e}")
-        return jsonify({"success": False, "error": str(e)}), 500
-
+    data = fetch_trending_topics()
+    if data:
+        return jsonify({"success": True, "data": data})
+    else:
+        return jsonify({"success": False, "error": "Failed to fetch trends"})
 
 if __name__ == "__main__":
     app.run(debug=True)
