@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 from pymongo import MongoClient
 from datetime import datetime
 import uuid
+from flask_cors import CORS
 
 # Load environment variables
 load_dotenv()
@@ -27,6 +28,7 @@ if not TWITTER_USERNAME or not TWITTER_EMAIL or not TWITTER_PASSWORD or not MONG
 
 # Flask app setup
 app = Flask(__name__)
+CORS(app)
 
 # MongoDB setup
 client = MongoClient(MONGO_URI)
